@@ -41,9 +41,9 @@
                 <button
                   @click="toggleFavourite(job.id)"
                   class="text-2xl transition transform hover:scale-110"
-                  :class="favourites.has(job.id) ? 'text-red-500' : 'text-gray-400'"
+                  :class="favourites.includes(job.id) ? 'text-red-500' : 'text-gray-400'"
                 >
-                  {{ favourites.has(job.id) ? '♥' : '♡' }}
+                  {{ favourites.includes(job.id) ? '♥' : '♡' }}
                 </button>
               </td>
             </tr>
@@ -78,7 +78,7 @@ import { ref, onMounted } from 'vue'
 
 const jobs = ref([])
 const search = ref('')
-const favourites = ref(new Set())
+const favourites = ref([])
 
 const currentPage = ref(0) // API pages start at 0
 const lastPage = ref(0)
@@ -116,6 +116,34 @@ async function fetchJobs(page = 0) {
   lastPage.value = json.pagination.lastPage
 }
 
+async function loadFavourites() {
+  const res = await fetch(`/favourites/1`) // example user
+  const json = await res.json()
+  favourites.value = json.jobIds
+}
+
+async function toggleFavourite(jobId) {
+  const isFav = favourites.value.includes(jobId)
+  const method = isFav ? 'DELETE' : 'POST'
+
+  try {
+    await fetch('/favourites', {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: 1, jobId })
+    })
+
+    if (isFav) {
+      favourites.value = favourites.value.filter(id => id !== jobId)
+    } else {
+      favourites.value.push(jobId)
+    }
+
+  } catch (err) {
+    console.error('Failed to toggle favourite', err)
+  }
+}
+
 function changePage(page) {
   if (page < 0 || page > lastPage.value) return
   currentPage.value = page
@@ -126,11 +154,8 @@ function applySearch() {
   fetchJobs(0)
 }
 
-function toggleFavourite(id) {
-  favourites.value.has(id)
-    ? favourites.value.delete(id)
-    : favourites.value.add(id)
-}
-
-onMounted(() => fetchJobs(currentPage.value))
+onMounted(async () => {
+  await fetchJobs()
+  await loadFavourites()
+})
 </script>

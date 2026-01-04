@@ -12,6 +12,11 @@ export default defineNuxtConfig({
           target: 'http://localhost:3001',
           changeOrigin: true,
           secure: false,
+        },
+        '/favourites': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+          secure: false,
         }
       }
     }

@@ -8,3 +8,10 @@ CREATE TABLE user (
   password TEXT NOT NULL,
   salt TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS favourite (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  job_id INTEGER NOT NULL,
+  UNIQUE(user_id, job_id)
+);

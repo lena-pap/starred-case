@@ -18,6 +18,9 @@ app.use('/users', usersRouter);
 var jobsRouter = require('./routes/jobs')
 app.use('/jobs', jobsRouter)
 
+var favouritesRouter = require('./routes/favourites')
+app.use('/favourites', favouritesRouter)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
