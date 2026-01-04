@@ -15,6 +15,9 @@ app.use(cors())
 
 app.use('/users', usersRouter);
 
+var jobsRouter = require('./routes/jobs')
+app.use('/jobs', jobsRouter)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
