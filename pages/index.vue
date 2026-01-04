@@ -21,7 +21,7 @@
               <th class="py-2 px-4 text-left">Job Title</th>
               <th class="py-2 px-4 text-left">Company</th>
               <th class="py-2 px-4 text-left">Description</th>
-              <th class="py-2 px-4 text-left">Favourite</th>
+              <th class="py-2 px-4 text-left">Actions</th>
             </tr>
           </thead>
 
