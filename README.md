@@ -23,6 +23,8 @@ Implemented search bar.
 Implemented a column named 'Actions' in the table. When user clicks on the heart icon, the job is saved as favourite and the icon is changed to bold.
 On reloading the page, the favourites' heart remains bold. This way the user can clearly see which jobs they have selected as favourites.
 
+![My art 🎨](./public/screenshot.png)
+
 ## Challenges/further thoughts
 - Connecting to the backend without hardcoding the full URL.
 - Why is the recommendations endpoint POST?
